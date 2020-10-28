@@ -22,10 +22,10 @@ namespace PlanteShopService.Controllers
         };
 
 
-        public static List<PlanteModel> Planter
-        {
-            get { return _planter; }
-        }
+        //public static List<PlanteModel> Planter
+        //{
+        //    get { return _planter; }
+        //}
 
         // GET: api/<PlanteController>
         [HttpGet]
@@ -50,29 +50,36 @@ namespace PlanteShopService.Controllers
             _planter.Add(value);
         }
 
-        // PUT api/<PlanteController>/5
-        [HttpPut]
-        [Route("{id}")]
-        public void PutPlant(int id, [FromBody] PlanteModel value)
+        [HttpGet]
+        [Route("type/{planteType}")]
+        public IEnumerable<PlanteModel> GetPlanterByType(string type)
         {
-            PlanteModel plante = Get(id);
-            if (plante != null)
-            {
-                plante.PlantId = value.PlantId;
-                plante.PlantType= value.PlantType;
-                plante.PlanteNavn = value.PlanteNavn;
-                plante.Price= value.Price;
-                plante.MaxHigh = value.MaxHigh;
-            }
+            return _planter.FindAll(i => i.PlantType.Contains(type, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        // DELETE api/<PlanteController>/5
-        [HttpDelete]
-        [Route("{id}")]
-        public void DeletePlante(int id)
-        {
-            PlanteModel plante = Get(id);
-            _planter.Remove(plante);
-        }
+        //// PUT api/<PlanteController>/5
+        //[HttpPut]
+        //[Route("{id}")]
+        //public void PutPlant(int id, [FromBody] PlanteModel value)
+        //{
+        //    PlanteModel plante = Get(id);
+        //    if (plante != null)
+        //    {
+        //        plante.PlantId = value.PlantId;
+        //        plante.PlantType= value.PlantType;
+        //        plante.PlanteNavn = value.PlanteNavn;
+        //        plante.Price= value.Price;
+        //        plante.MaxHigh = value.MaxHigh;
+        //    }
+        //}
+
+        //// DELETE api/<PlanteController>/5
+        //[HttpDelete]
+        //[Route("{id}")]
+        //public void DeletePlante(int id)
+        //{
+        //    PlanteModel plante = Get(id);
+        //    _planter.Remove(plante);
+        //}
     }
 }
